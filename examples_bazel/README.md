@@ -6,6 +6,9 @@ https://peps.python.org/pep-0008/#descriptive-naming-styles
 ## cpp
 Hello World C++ example with dependency
 
+## cpp_foreign
+Hello World C++ example to demonstrate C++ targets built by non-Bazel build systems, CMake in this case, with regular and header only targets.
+
 ## cpp_sanitizers
 Hello World C++ example to demonstrate C++ address sanitizer
 
