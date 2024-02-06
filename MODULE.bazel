@@ -1,4 +1,4 @@
-module(name = "amp-software", version = "1.0.0")
+module(name = "bazel-examples", version = "1.0.0")
 
 # 3rd party module dependencies in Bazel Central Registry: https://registry.bazel.build/
 # Note: "com_google_absl" alias name is required by status_macros module,
