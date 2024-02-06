@@ -33,3 +33,39 @@ bazel build //...
 ```
 bazel test //...
 ```
+
+### Gitlab-Runner Integration
+If your source code lives on a GitLab instance, the following can be added for CI/CD, e.g. e.g. in `.gitlab-ci.yml`:
+
+```
+stages:
+  - build
+  - test
+
+.bazel-common:
+  variables:
+    GIT_SUBMODULE_STRATEGY: none
+  before_script:
+    - echo "Using ./bazel-common ..."
+
+bazel-build:
+  image:
+    name: thx123/ubuntu-with-bazelisk:1.5
+    entrypoint: [""]
+  stage: build
+  extends: .bazel-common
+  script:
+    - bazel --bazelrc=./cfg-bazel/bazelrc/gitlab-runner.aws.rc info
+    - bazel --bazelrc=./cfg-bazel/bazelrc/gitlab-runner.aws.rc build //...
+
+bazel-test:
+  image:
+    name: thx123/ubuntu-with-bazelisk:1.5
+    entrypoint: [""]
+  stage: test
+  extends: .bazel-common
+  script:
+    - bazel --bazelrc=./cfg-bazel/bazelrc/gitlab-runner.aws.rc info
+    - bazel --bazelrc=./cfg-bazel/bazelrc/gitlab-runner.aws.rc test //...
+```
+
