@@ -1,0 +1,161 @@
+# BUILD file for the toolchain repo
+package(default_visibility = ["//visibility:public"])
+
+# export the executable files to make them available for direct use.
+exports_files(glob(
+		["**"],
+		exclude_directories=0)
+)
+
+filegroup(
+    name = "empty",
+)
+
+filegroup(
+    name = "all_files",
+    srcs = glob(["**"]),
+)
+
+filegroup(
+    name = "sysroot",
+    srcs = glob(
+        ["aarch64-none-linux-gnu/**"],
+        allow_empty = False,
+    ),
+)
+
+# gcc executables.
+filegroup(
+    name = "gcc",
+    srcs = ["bin/aarch64-none-linux-gnu-gcc"],
+)
+
+# cpp executables.
+filegroup(
+    name = "cpp",
+    srcs = ["bin/aarch64-none-linux-gnu-cpp"],
+)
+
+# gcov executables.
+filegroup(
+    name = "gcov",
+    srcs = ["bin/aarch64-none-linux-gnu-gcov"],
+)
+
+# gdb executables.
+filegroup(
+    name = "gdb",
+    srcs = ["bin/aarch64-none-linux-gnu-gdb"],
+)
+
+# ar executables.
+filegroup(
+    name = "ar",
+    srcs = ["bin/aarch64-none-linux-gnu-ar"],
+)
+
+# ld executables.
+filegroup(
+    name = "ld",
+    srcs = ["bin/aarch64-none-linux-gnu-ld"],
+)
+
+# nm executables.
+filegroup(
+    name = "nm",
+    srcs = ["bin/aarch64-none-linux-gnu-nm"],
+)
+
+# objcopy executables.
+filegroup(
+    name = "objcopy",
+    srcs = ["bin/aarch64-none-linux-gnu-objcopy"],
+)
+
+# objdump executables.
+filegroup(
+    name = "objdump",
+    srcs = ["bin/aarch64-none-linux-gnu-objdump"],
+)
+
+# strip executables.
+filegroup(
+    name = "strip",
+    srcs = ["bin/aarch64-none-linux-gnu-strip"],
+)
+
+# as executables.
+filegroup(
+    name = "as",
+    srcs = ["bin/aarch64-none-linux-gnu-as"],
+)
+
+# readelf executables.
+filegroup(
+    name = "readelf",
+    srcs = ["bin/aarch64-none-linux-gnu-readelf"],
+)
+
+# size executables.
+filegroup(
+    name = "size",
+    srcs = ["bin/aarch64-none-linux-gnu-size"],
+)
+
+# libraries and headers.
+filegroup(
+    name = "compiler_pieces",
+    srcs = glob([
+        "libexec/**",
+        "aarch64-none-linux-gnu/**",
+        "lib/**",
+        "lib/gcc/aarch64-none-linux-gnu/**",
+    ]),
+)
+
+filegroup(
+    name = "ar_files",
+    srcs = [
+        ":ar",
+        ":compiler_pieces",
+        ":gcc",
+    ],
+)
+
+# files for executing compiler.
+filegroup(
+    name = "compiler_files",
+    srcs = [
+        ":compiler_pieces",
+        ":cpp",
+        ":gcc",
+    ],
+)
+
+filegroup(
+    name = "linker_files",
+    srcs = [
+        ":ar",
+        ":compiler_pieces",
+        ":gcc",
+        ":ld",
+    ],
+)
+
+# collection of executables.
+filegroup(
+    name = "compiler_components",
+    srcs = [
+        ":ar",
+        ":as",
+        ":compiler_pieces",
+        ":cpp",
+        ":gcc",
+        ":gcov",
+        ":ld",
+        ":nm",
+        ":objcopy",
+        ":objdump",
+        ":strip",
+    ],
+)

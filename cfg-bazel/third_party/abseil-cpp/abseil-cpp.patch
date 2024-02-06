@@ -1,0 +1,37 @@
+diff --git a/absl/copts/GENERATED_AbseilCopts.cmake b/absl/copts/GENERATED_AbseilCopts.cmake
+index 430916f..fd8f5b1 100644
+--- a/absl/copts/GENERATED_AbseilCopts.cmake
++++ b/absl/copts/GENERATED_AbseilCopts.cmake
+@@ -224,6 +224,4 @@ list(APPEND ABSL_RANDOM_HWAES_MSVC_X64_FLAGS
+ )
+ 
+ list(APPEND ABSL_RANDOM_HWAES_X64_FLAGS
+-    "-maes"
+-    "-msse4.1"
+ )
+diff --git a/absl/copts/GENERATED_copts.bzl b/absl/copts/GENERATED_copts.bzl
+index 011d8a9..048e2d4 100644
+--- a/absl/copts/GENERATED_copts.bzl
++++ b/absl/copts/GENERATED_copts.bzl
+@@ -225,6 +225,4 @@ ABSL_RANDOM_HWAES_MSVC_X64_FLAGS = [
+ ]
+ 
+ ABSL_RANDOM_HWAES_X64_FLAGS = [
+-    "-maes",
+-    "-msse4.1",
+ ]
+diff --git a/absl/copts/copts.py b/absl/copts/copts.py
+index e6e1194..e6c3c5c 100644
+--- a/absl/copts/copts.py
++++ b/absl/copts/copts.py
+@@ -183,9 +183,6 @@ COPT_VARS = {
+     # to improve performance of some random bit generators.
+     "ABSL_RANDOM_HWAES_ARM64_FLAGS": ["-march=armv8-a+crypto"],
+     "ABSL_RANDOM_HWAES_ARM32_FLAGS": ["-mfpu=neon"],
+-    "ABSL_RANDOM_HWAES_X64_FLAGS": [
+-        "-maes",
+-        "-msse4.1",
+-    ],
++    "ABSL_RANDOM_HWAES_X64_FLAGS": [],
+     "ABSL_RANDOM_HWAES_MSVC_X64_FLAGS": [],
+ }

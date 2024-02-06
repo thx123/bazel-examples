@@ -1,0 +1,120 @@
+# Enable Bzlmod for every Bazel command
+# Note: Keep this flag here after it's enabled by default in v.7.0.0, as we
+# need to stay at v6.4.0 due to rules_foreign_cc breakage.
+common --enable_bzlmod
+
+# All options comming from this file will be announced on the terminal.
+common --announce_rc
+
+# Add timestamps to message.
+# common --show_timestamps
+
+# If a command fails, print out the full command line.
+# build --verbose_failures
+# build --subcommands
+
+# rules_foreign_cc's cmake targets may trouble accessing outputs of their deppendency
+# targets when building with the default sandbox strategy, so we fall back to the
+# 'standalone' (a.k.a. 'local') strategy for it in v7.0.0, or stay at v.6.4.0
+# and enable bzlmod.
+# build --spawn_strategy=standalone
+# build --spawn_strategy=sandboxed
+
+# For additional debugging messages and reproducing build failures in sandbox environments
+# Context: https://blog.bazel.build/2016/03/18/sandbox-easier-debug.html
+# build --sandbox_debug
+
+# Additional debug info for toolchain reolution (warning: verbose and hard-to-read)
+# Debugging tips (with cquery, etc):
+# https://bazel.build/extending/toolchains?authuser=1#debugging-toolchains
+# build --toolchain_resolution_debug=<regex>
+# build --toolchain_resolution_debug=//<failing:target>
+# build --toolchain_resolution_debug=//examples_bazel/cpp_stm32
+
+# Build using platforms by default
+# Background: https://bazel.build/concepts/platforms#status
+# Note: No longer needed since v7.0.0 but kept here for now just to be safe.
+build --incompatible_enable_cc_toolchain_resolution
+
+# build --cxxopt=-std=c++20
+build --cxxopt=-std=c++17
+
+# build sementics: https://bazel.build/docs/user-manual#build-semantics
+# opt (optimized) build for production, dbg (debug) build for local development and debugging
+build:opt --compilation_mode=opt
+build:dbg --compilation_mode=dbg
+build:fastbuild --compilation_mode=fastbuild
+
+# Custom platforms
+# Host platforms
+build:linux_x86_64 --platforms=//cfg-bazel/platforms:linux_x86_64
+build:macos_aarch64 --platforms=//cfg-bazel/platforms:macos_aarch64
+build:windows_x86_64 --platforms=//cfg-bazel/platforms:windows_x86_64
+# Target platforms
+build:kr260_a --platforms=//cfg-bazel/platforms:kr260_a
+build:kr260_r --platforms=//cfg-bazel/platforms:kr260_r
+build:stm32g4 --platforms=//cfg-bazel/platforms:stm32g4
+
+# Remote cache for faster builds
+# Fall back to local cache instead of failing if remote cache is not accessible
+build --remote_local_fallback
+# This will be turned on officially in the near future
+build --experimental_guard_against_concurrent_changes
+
+# Note: This is a shared remote cache server for SC and Berkeley developers.
+# Gitlab-runners on the AWS will use a different cache server colocated on the AWS.
+# Prefer grpc (on port 9002) over http (on port 9090) as it's faster
+#build --remote_cache=grpc://amp-build0:9092
+# Disk cache, behaving like remote cache, can cache build results for multiple Git branches.
+build --disk_cache=~/.cache/bazel
+# Uncomment the following line if you only want to read from but not write to the cache.
+# build --remote_upload_local_results=false
+
+# --async for faster cleaning, comment out in case this is not supported in your platform
+clean --async
+
+# Print the full error of the test that fails.
+test --test_output=errors
+
+# Configuration for "stress", e.g.
+#   bazel test --config=stress :my_target
+#   (the flags --runs_per_test=10 and --notest_keep_going will be added to the command line).
+test:stress --runs_per_test=10
+test:stress --notest_keep_going
+
+# Address sanitizer
+# # To use it: bazel build --config asan
+build:asan --strip=never
+build:asan --copt -fsanitize=address
+build:asan --copt -DADDRESS_SANITIZER
+build:asan --copt -O1
+build:asan --copt -g
+build:asan --copt -fno-omit-frame-pointer
+build:asan --linkopt -fsanitize=address
+
+# Thread sanitizer
+# bazel build --config tsan
+build:tsan --strip=never
+build:tsan --copt -fsanitize=thread
+build:tsan --copt -DTHREAD_SANITIZER
+build:tsan --copt -DDYNAMIC_ANNOTATIONS_ENABLED=1
+build:tsan --copt -DDYNAMIC_ANNOTATIONS_EXTERNAL_IMPL=1
+build:tsan --copt -O1
+build:tsan --copt -fno-omit-frame-pointer
+build:tsan --linkopt -fsanitize=thread
+
+# --config msan: Memory sanitizer
+build:msan --strip=never
+build:msan --copt -fsanitize=memory
+build:msan --copt -DADDRESS_SANITIZER
+build:msan --copt -O1
+build:msan --copt -fno-omit-frame-pointer
+build:msan --linkopt -fsanitize=memory
+
+# --config ubsan: Undefined Behavior Sanitizer
+build:ubsan --strip=never
+build:ubsan --copt -fsanitize=undefined
+build:ubsan --copt -O1
+build:ubsan --copt -fno-omit-frame-pointer
+build:ubsan --linkopt -fsanitize=undefined
+build:ubsan --linkopt -lubsan

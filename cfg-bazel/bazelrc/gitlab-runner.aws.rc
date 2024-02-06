@@ -1,0 +1,5 @@
+# .bazelrc parameters specific to gitlab-runners on the AWS
+
+# Note: This is a shared remote cache server on AWS accessible only by gitlab-runners on AWS.
+# Prefer grpc (on port 9002) over http (on port 9090) as it's faster
+# build --remote_cache=grpc://<bazel_remote_server>:9092

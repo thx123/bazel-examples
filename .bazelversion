@@ -1,0 +1,2 @@
+6.4.0
+# 7.0.0 not using the latest due to rules_foreign_cc breakage.

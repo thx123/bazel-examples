@@ -1,0 +1,28 @@
+diff --git a/.bazelversion b/.bazelversion
+new file mode 100644
+index 000000000..19b860c18
+--- /dev/null
++++ b/.bazelversion
+@@ -0,0 +1 @@
++6.4.0
+diff --git a/MODULE.bazel b/MODULE.bazel
+new file mode 100644
+index 000000000..b05787fda
+--- /dev/null
++++ b/MODULE.bazel
+@@ -0,0 +1,15 @@
++###############################################################################
++# Bazel now uses Bzlmod by default to manage external dependencies.
++# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
++#
++# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
++###############################################################################
++module(
++  name = "boringssl",
++  version = "0.0.0-20211025-d4f1ab9",
++  compatibility_level = 1,
++)
++
++bazel_dep(name = "rules_cc", version = "0.0.1")
++bazel_dep(name = "platforms", version = "0.0.4")
++bazel_dep(name = "bazel_skylib", version = "1.0.3")
