@@ -15,6 +15,7 @@ Ubuntu on Intel processors are supported out of the box. Since not all C++ toolc
 ```
 docker run -itd -v $(realpath .):/home/builder/workspace --name bazel-examples thx123/ubuntu-with-bazel
 ```
+More information about the Docker image can be found at [dockerhub](https://hub.docker.com/repository/docker/thx123/ubuntu-with-bazelisk/general).
 
 2. Connect to the container:
 ```
