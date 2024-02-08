@@ -1,5 +1,5 @@
 # bazel-examples
-Bazel hello-world examples for C++, Go, Python, including custom toolchain setups for embedded C++ ([KR260](https://www.xilinx.com/products/som/kria/kr260-robotics-starter-kit.html) and [STM32](https://en.wikipedia.org/wiki/STM32) with ARM processors), pybind11 and gRPC server/clients running in various languages on Intel and/or ARM processors.
+Bazel hello-world examples for C++, Go, Python, including custom toolchain setups for embedded C++ ([KR260](https://www.xilinx.com/products/som/kria/kr260-robotics-starter-kit.html) and [STM32](https://en.wikipedia.org/wiki/STM32) with ARM processors), pybind11 and gRPC server/clients running in various languages on Intel and/or ARM processors. The background and motiviation of this project can be found at [bazel-discuss@](https://groups.google.com/g/bazel-discuss/c/eScnfnQU21I).
 
 ## Instructions
 
