@@ -13,7 +13,7 @@ Ubuntu on Intel processors are supported out of the box. However, since not all 
 
 1. Start a long running container based on an multi-platform image that supports both Linux and MacOS:
 ```
-docker run -itd -v $(realpath .):/home/builder/workspace --name bazel-examples thx123/ubuntu-with-bazel
+docker run -itd -v $(realpath .):/home/builder/workspace --name bazel-examples thx123/ubuntu-with-bazel:latest
 ```
 More information about the Docker image can be found at [dockerhub](https://hub.docker.com/repository/docker/thx123/ubuntu-with-bazelisk/general).
 
