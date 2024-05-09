@@ -61,8 +61,6 @@ build --remote_local_fallback
 # This will be turned on officially in the near future
 build --experimental_guard_against_concurrent_changes
 
-# Note: This is a shared remote cache server for SC and Berkeley developers.
-# Gitlab-runners on the AWS will use a different cache server colocated on the AWS.
 # Prefer grpc (on port 9002) over http (on port 9090) as it's faster
 #build --remote_cache=grpc://amp-build0:9092
 # Disk cache, behaving like remote cache, can cache build results for multiple Git branches.
