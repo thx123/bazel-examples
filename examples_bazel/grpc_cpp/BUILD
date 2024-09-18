@@ -3,7 +3,7 @@ cc_binary(
     srcs = ["greeter_client.cc"],
     # static linking to overcome the version mismatch problem of
     # libc.so.6 and libstdc++.so.6 between host and target environments.
-    linkopts = ["-static"],
+    # linkopts = ["-static"],
     deps = [
         "@grpc//:grpc++",
         "//examples_bazel/protos:helloworld_cpp_grpc",
@@ -17,7 +17,7 @@ cc_binary(
     srcs = ["greeter_server.cc"],
     # static linking to overcome the version mismatch problem of
     # libc.so.6 and libstdc++.so.6 between host and target environments.
-    linkopts = ["-static"],
+    # linkopts = ["-static"],
     deps = [
         "@grpc//:grpc++",
         "@grpc//:grpc++_reflection",
