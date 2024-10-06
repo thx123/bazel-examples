@@ -7,7 +7,7 @@ cmake(
     # Note: This exact name is required to make "cppzmq cmake target work.
     name = "ZeroMQ",
     # This uses Ninja to build under the hood, which is faster than make.
-    generate_args = ["-GNinja"],
+    # generate_args = ["-GNinja"],
     lib_source = "@zeromq//:all_srcs",
     out_static_libs = ["libzmq.a"],
 )
@@ -15,7 +15,7 @@ cmake(
 cmake(
     name = "cppzmq",
     # This uses Ninja to build under the hood, which is faster than make.
-    generate_args = ["-GNinja"],
+    # generate_args = ["-GNinja"],
     lib_source = "@cppzmq//:all_srcs",
     deps = [":ZeroMQ"],
     tags = ["requires-network"],
