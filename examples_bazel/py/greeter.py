@@ -1,3 +1,3 @@
 def greet():
-    return "Hello from greeter!"
+    return "\nHello World!\n"
 
